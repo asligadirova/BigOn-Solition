@@ -35,6 +35,8 @@ namespace BgOn.WebUI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+
             app.UseStaticFiles();
             app.UseRouting();
             app.UseEndpoints(cfg =>

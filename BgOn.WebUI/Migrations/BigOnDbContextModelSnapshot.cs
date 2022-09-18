@@ -112,6 +112,9 @@ namespace BgOn.WebUI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -135,7 +138,52 @@ namespace BgOn.WebUI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BrandId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("BgOn.WebUI.Models.Entities.ProductCatalogItem", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductSizeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductMaterialId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductColorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("ProductId", "ProductSizeId", "ProductTypeId", "ProductMaterialId", "ProductColorId");
+
+                    b.HasIndex("ProductColorId");
+
+                    b.HasIndex("ProductMaterialId");
+
+                    b.HasIndex("ProductSizeId");
+
+                    b.HasIndex("ProductTypeId");
+
+                    b.ToTable("ProductCatalog");
                 });
 
             modelBuilder.Entity("BgOn.WebUI.Models.Entities.ProductColor", b =>
@@ -151,12 +199,44 @@ namespace BgOn.WebUI.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Hex")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors");
+                    b.ToTable("ProductColors");
+                });
+
+            modelBuilder.Entity("BgOn.WebUI.Models.Entities.ProductImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("BgOn.WebUI.Models.Entities.ProductMaterial", b =>
@@ -194,6 +274,10 @@ namespace BgOn.WebUI.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SmallName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -231,9 +315,106 @@ namespace BgOn.WebUI.Migrations
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("BgOn.WebUI.Models.Entities.Product", b =>
+                {
+                    b.HasOne("BgOn.WebUI.Models.Entities.Brand", "Brand")
+                        .WithMany("Products")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brand");
+                });
+
+            modelBuilder.Entity("BgOn.WebUI.Models.Entities.ProductCatalogItem", b =>
+                {
+                    b.HasOne("BgOn.WebUI.Models.Entities.ProductColor", "ProductColor")
+                        .WithMany("ProductCatalogItem")
+                        .HasForeignKey("ProductColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BgOn.WebUI.Models.Entities.Product", "Product")
+                        .WithMany("ProductCatalog")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BgOn.WebUI.Models.Entities.ProductMaterial", "ProductMaterial")
+                        .WithMany("ProductCatalogItem")
+                        .HasForeignKey("ProductMaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BgOn.WebUI.Models.Entities.ProductSize", "ProductSize")
+                        .WithMany("ProductCatalogItem")
+                        .HasForeignKey("ProductSizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BgOn.WebUI.Models.Entities.ProductType", "ProductType")
+                        .WithMany("ProductCatalogItem")
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ProductColor");
+
+                    b.Navigation("ProductMaterial");
+
+                    b.Navigation("ProductSize");
+
+                    b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("BgOn.WebUI.Models.Entities.ProductImages", b =>
+                {
+                    b.HasOne("BgOn.WebUI.Models.Entities.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("BgOn.WebUI.Models.Entities.Brand", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("BgOn.WebUI.Models.Entities.Category", b =>
                 {
                     b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("BgOn.WebUI.Models.Entities.Product", b =>
+                {
+                    b.Navigation("Images");
+
+                    b.Navigation("ProductCatalog");
+                });
+
+            modelBuilder.Entity("BgOn.WebUI.Models.Entities.ProductColor", b =>
+                {
+                    b.Navigation("ProductCatalogItem");
+                });
+
+            modelBuilder.Entity("BgOn.WebUI.Models.Entities.ProductMaterial", b =>
+                {
+                    b.Navigation("ProductCatalogItem");
+                });
+
+            modelBuilder.Entity("BgOn.WebUI.Models.Entities.ProductSize", b =>
+                {
+                    b.Navigation("ProductCatalogItem");
+                });
+
+            modelBuilder.Entity("BgOn.WebUI.Models.Entities.ProductType", b =>
+                {
+                    b.Navigation("ProductCatalogItem");
                 });
 #pragma warning restore 612, 618
         }

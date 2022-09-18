@@ -1,4 +1,5 @@
 ﻿using BgOn.WebUI.AppCode.Infrastructure;
+using System.Collections.Generic;
 
 namespace BgOn.WebUI.Models.Entities
 {
@@ -10,5 +11,9 @@ namespace BgOn.WebUI.Models.Entities
 
         public string ShortDescription { get; set; }
         public string Description { get; set; }
+        public int BrandId { get; set; }
+        public virtual Brand Brand { get; set; }
+        public virtual ICollection<ProductImages> Images { get; set; }
+        public virtual ICollection<ProductCatalogItem> ProductCatalog { get; set; }
     }
 }
