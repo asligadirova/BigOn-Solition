@@ -15,7 +15,7 @@ namespace BgOn.WebUI
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }
 
         public Startup(IConfiguration configuration)
         {
@@ -23,10 +23,13 @@ namespace BgOn.WebUI
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllersWithViews();
             services.AddDbContext<BigOnDbContext>(cfg =>
             {
                 cfg.UseSqlServer(Configuration["ConnectionStrings:cString"]);
+            });
+            services.AddRouting(cfg =>{
+                cfg.LowercaseUrls = true;
             });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -36,12 +39,13 @@ namespace BgOn.WebUI
                 app.UseDeveloperExceptionPage();
             }
 
-
+            app.SeedData();
             app.UseStaticFiles();
             app.UseRouting();
+           
             app.UseEndpoints(cfg =>
             {
-            cfg.MapControllerRoute("default","{controller=home}/{action=index}/{id?}");
+              cfg.MapControllerRoute("default","{controller=home}/{action=index}/{id?}");
             });
 
         }
