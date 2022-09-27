@@ -4,14 +4,16 @@ using BgOn.WebUI.Models.DataContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BgOn.WebUI.Migrations
 {
     [DbContext(typeof(BigOnDbContext))]
-    partial class BigOnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220922161840_SubscribesWithApproved")]
+    partial class SubscribesWithApproved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

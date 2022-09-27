@@ -27,7 +27,8 @@ namespace BgOn.WebUI.Models.DataContexts
         public DbSet<ProductCatalogItem> ProductCatalog { get; set; }
 
         public DbSet<Faq> Faqs { get; set; }
-
+        public DbSet<Subscribe> Subscribes { get; set; }
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                 base.OnModelCreating(modelBuilder);

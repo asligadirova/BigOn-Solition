@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Contact";
 }
+
        <!-- Breadcrumb Start -->
         <div class="breadcrumb-area ptb-50">
             <div class="container">
@@ -44,30 +45,31 @@
                         </div>
                    }
                 
-                 <div asp-validation-summary="All" class="alert-danger">
-
-                 </div>
+                 
                     <div class="address-wrapper row">
                         <div class="col-12 col-md-6">
-                            <div class="address-fname">                                
+                            <div class="address-fname control-wrapper">                                
                                 <input asp-for="Name" placeholder="Name"/>
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
-                            <div class="address-email">                              
+                            <div class="address-email control-wrapper">                              
                                 <input asp-for="Email" type="email" placeholder="Email"/>
+                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
                        
                         <div class="col-12">
-                            <div class="address-subject">                        
+                            <div class="address-subject control-wrapper">                        
                                <input asp-for="Subject" placeholder="Subject">
+                                <span asp-validation-for="Subject" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="address-textarea">
-                               
+                            <div class="address-textarea control-wrapper">                               
                                  <textarea asp-for="Message" placeholder="Write your message"></textarea>
+                                <span asp-validation-for="Message" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -81,27 +83,87 @@
             </div>
         </div>
         <!-- Contact Email Area End -->
-        <!-- Signup Newsletter Start -->
-        <div class="newsletter">
-            <div class="container">
-                <div class="row">
-                     <div class="col-md-7">
-                         <div class="main-news-desc">
-                             <div class="news-desc">
-                                 <h3>Sign Up For <span>Newsletters</span></h3>
-                                 <p>Get e-mail updates about our latest shop and special offers.</p>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-5">
-                         <div class="newsletter-box">
-                             <form action="#">
-                                  <input class="subscribe" placeholder="Enter your email address" name="email" id="subscribe" type="text">
-                                  <button type="submit" class="submit">subscribe</button>
-                             </form>
-                         </div>
-                     </div>
-                </div>
-            </div>
-        </div>
+     
         <!-- Signup-Newsletter End -->
+
+
+@section addcss{
+    <link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
+    <style>
+        input[name].novalidated,
+        textarea[name].novalidated{
+            border-color:rgb(220,53,69);
+            border:1px solid rgb(220,53,69);
+        }
+    </style>
+}    
+@section addjs{
+   <script  src="~/libs/toastr.js/toastr.min.js"></script>
+    <script  src="~/libs/toastr.js/toastr.customizer.js"></script>
+
+    <script>
+       $(document).ready(function() {
+
+    $('#contact-form').submit(function(ev) {
+        ev.preventDefault(ev.currentTarget);
+
+        let fd = new FormData(ev.currentTarget);//formdan formdatanl ald;
+      
+        $.ajax({
+            url:'@Url.Action("Contact")',
+            type:'post',
+            data:fd,
+            processData:false,
+            contentType:false,
+            success: function(response) {
+                $('#contact-form span.text-danger').remove();
+                $('#contact-form input[name],#contact-form textarea[name]',).removeClass('novalidated');
+
+                console.log(response, 'SUCCESS');
+                if (response.error==true) 
+                {
+                    toastr.error(response.message, 'Xeta var');
+                   
+                    showErrors(response.state);
+                    return;
+                }
+                 toastr.success(response.message, 'Ugurludur!');
+                ev.currentTarget.reset();
+            },
+            error: function(errorResponse) {
+                console.log(errorResponse, 'ERROR');
+            }
+        });
+        
+        //console.log(formData.get("Name"), "Adi");
+       //console.log(formData.get("Email"), "Email");
+       //console.log(formData.get("Subject"), "Subject");
+       //console.log(formData.get("Message"), "Message");
+    });
+
+
+
+    });
+       
+         function showErrors(state) {
+             
+             let form = $('#contact-form');
+
+             state.forEach(item => {
+
+                 let errorInput = $(`#contact-form input[name=${item.fieldName}],#contact-form textarea[name=${item.fieldName}]`);
+                 let errorSpan= $('<span/>', {
+                       class:'text-danger',
+                       html:item.message
+                     });
+
+                     $(errorInput.parent()).append(errorSpan);
+                     $(errorInput).addClass('novalidated');
+
+                
+             });
+
+         }
+
+    </script>
+}

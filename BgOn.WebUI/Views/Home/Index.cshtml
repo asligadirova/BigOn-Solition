@@ -3823,7 +3823,7 @@
                      </div>
                      <div class="col-md-5">
                          <div class="newsletter-box">
-                             <form action="#">
+                             <form id="newsletter-subscribe" method="post">
                                   <input class="subscribe" placeholder="Enter your email address" name="email" id="subscribe" type="text">
                                   <button type="submit" class="submit">subscribe</button>
                              </form>
@@ -3833,3 +3833,39 @@
             </div>
         </div>
         <!-- Signup-Newsletter End -->
+         
+        @section addcss{
+            <link  rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
+        }
+        @section addjs{
+               <script  src="~/libs/toastr.js/toastr.min.js"></script>
+               <script  src="~/libs/toastr.js/toastr.customizer.js"></script>
+        <script>
+            $(document).ready(function() {
+               
+                $('#newsletter-subscribe').submit(function(e) {
+                    e.preventDefault();
+
+                   let formData = new FormData(e.currentTarget);
+                  
+                   $.ajax({
+                        url: '@Url.Action("Subscribe")',
+                        type: 'POST',
+                        data: formData,
+                        processData:false,
+                        contentType:false,
+                        success: function (response) {
+                            console.log(response);
+                        },
+                         error: function (response) {
+                             console.error(response);
+                        }
+
+                    });
+                });
+
+                
+            });
+        </script>
+        
+        }

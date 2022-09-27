@@ -4855,3 +4855,14 @@ legend {
 	font-size: 13px;
 	margin-bottom: 5px;
 }
+.control-wrapper {
+    margin-bottom: 30px;
+}
+
+    .control-wrapper > input {
+        margin-bottom: 3px;
+        float: none;
+    }
+
+        .control-wrapper > input + span.text-danger {
+        } 
