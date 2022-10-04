@@ -45,7 +45,9 @@ namespace BgOn.WebUI
            
             app.UseEndpoints(cfg =>
             {
-              cfg.MapControllerRoute("default","{controller=home}/{action=index}/{id?}");
+                cfg.MapAreaControllerRoute("defaultAdmin", "admin", "admin/{controller=dashboard}/{action=index}/{id?}");
+                cfg.MapControllerRoute("default","{controller=home}/{action=index}/{id?}");
+              
             });
 
         }
