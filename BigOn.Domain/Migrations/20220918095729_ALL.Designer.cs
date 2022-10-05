@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BgOn.WebUI.Migrations
+namespace BigOn.Domain.Migrations
 {
     [DbContext(typeof(BigOnDbContext))]
     [Migration("20220918095729_ALL")]

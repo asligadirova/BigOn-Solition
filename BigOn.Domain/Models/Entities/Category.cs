@@ -1,8 +1,8 @@
-﻿using BgOn.WebUI.AppCode.Infrastructure;
+﻿using BigOn.Domain.AppCode.Infrastructure;
 using System;
 using System.Collections.Generic;
 
-namespace BgOn.WebUI.Models.Entities
+namespace BigOn.Domain.Models.Entities
 {
     public class Category: BaseEntity
     {

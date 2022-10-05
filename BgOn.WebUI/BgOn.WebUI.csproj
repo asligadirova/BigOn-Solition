@@ -22,4 +22,8 @@
     <ProjectReference Include="..\BigOn.Domain\BigOn.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

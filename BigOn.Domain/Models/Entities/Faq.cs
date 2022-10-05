@@ -1,7 +1,7 @@
-﻿using BgOn.WebUI.AppCode.Infrastructure;
+﻿using BigOn.Domain.AppCode.Infrastructure;
 using System.ComponentModel.DataAnnotations;
 
-namespace BgOn.WebUI.Models.Entities
+namespace BigOn.Domain.Models.Entities
 {
     public class Faq: BaseEntity
     {

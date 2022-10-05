@@ -1,6 +1,6 @@
-﻿using BgOn.WebUI.AppCode.Infrastructure;
+﻿using BigOn.Domain.AppCode.Infrastructure;
 
-namespace BgOn.WebUI.Models.Entities
+namespace BigOn.Domain.Models.Entities
 {
     public class ProductCatalogItem : BaseEntity
     {

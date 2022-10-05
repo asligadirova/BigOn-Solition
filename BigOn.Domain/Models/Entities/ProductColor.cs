@@ -1,11 +1,12 @@
-﻿using BgOn.WebUI.AppCode.Infrastructure;
+﻿using BigOn.Domain.AppCode.Infrastructure;
 using System.Collections.Generic;
 
-namespace BgOn.WebUI.Models.Entities
+namespace BigOn.Domain.Models.Entities
 {
-    public class ProductMaterial: BaseEntity
+    public class ProductColor: BaseEntity
     {
         public string Name { get; set; }
+        public string Hex { get; set; }
         public virtual ICollection<ProductCatalogItem> ProductCatalogItem { get; set; }
     }
 }

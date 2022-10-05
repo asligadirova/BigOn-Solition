@@ -1,7 +1,7 @@
-﻿using BgOn.WebUI.AppCode;
-using BgOn.WebUI.AppCode.Extensions;
-using BgOn.WebUI.Models.DataContexts;
-using BgOn.WebUI.Models.Entities;
+﻿using BigOn.Domain.AppCode;
+using BigOn.Domain.AppCode.Extensions;
+using BigOn.Domain.Models.DataContexts;
+using BigOn.Domain.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;

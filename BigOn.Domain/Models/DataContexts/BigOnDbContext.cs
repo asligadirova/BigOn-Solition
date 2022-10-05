@@ -1,9 +1,9 @@
-﻿using BgOn.WebUI.Models.Entities;
+﻿using BigOn.Domain.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
 
-namespace BgOn.WebUI.Models.DataContexts
+namespace BigOn.Domain.Models.DataContexts
 {
     public class BigOnDbContext : DbContext
     {

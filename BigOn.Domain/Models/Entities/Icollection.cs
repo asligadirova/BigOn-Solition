@@ -1,4 +1,4 @@
-﻿namespace BgOn.WebUI.Models.Entities
+﻿namespace BigOn.Domain.Models.Entities
 {
     public class Icollection<T>
     {

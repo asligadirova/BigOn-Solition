@@ -1,11 +1,11 @@
-﻿using BgOn.WebUI.Models.Entities;
+﻿using BigOn.Domain.Models.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 
-namespace BgOn.WebUI.Models.DataContexts
+namespace BigOn.Domain.Models.DataContexts
 {
     public static class BigOnSeed
     {

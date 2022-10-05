@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using BgOn.WebUI.Models.DataContexts;
-using BgOn.WebUI.Models.Entities;
+using BigOn.Domain.Models.DataContexts;
+using BigOn.Domain.Models.Entities;
 
 namespace BgOn.WebUI.Areas.Admin.Controllers
 {
